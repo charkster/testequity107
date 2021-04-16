@@ -1,4 +1,5 @@
 from test_equity_107_usb import test_equity_107_usb
+import time
 
 tc = test_equity_107_usb(serial_port='/dev/ttyUSB0') # serial_port='COM6' for Windows
 print(tc.read_temp())
