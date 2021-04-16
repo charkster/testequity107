@@ -5,7 +5,7 @@ import time
 # https://www.testequity.com/RS-232-F4-resources
 # https://assets.testequity.com/te1/Documents/chambers/107man.pdf
 
-class TestEquity107():
+class test_equity_107_usb():
 	
 	def __init__(self, serial_port):
 		self.nchannels                      = 1
@@ -78,12 +78,3 @@ class TestEquity107():
 		if soak_time > 0.0:
 			time.sleep(60.0 * soak_time)
 		print("Measurement in progress...")
-
-#oven = TestEquity107(serial_port='/dev/ttyUSB0')
-#print(oven.read_temp())
-#oven.write_temp_value(24.7)
-#oven.start_chamber()
-#oven.stop_chamber()
-#time.sleep(1)
-#oven.set_temp(26)
-
