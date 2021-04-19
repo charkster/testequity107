@@ -41,40 +41,27 @@ class test_equity_107_usb():
 
 	def stop_chamber(self):
 		self.inst.write_register(self.register_set_enable, 0, 0)
-
-	def set_temp(self, temp, guardband=1, soak_time=1):
-		upper_lim = temp + guardband
-		lower_lim = temp - guardband
-		current_temp = self.read_temp()
-		stable = 0
-		cnt    = 10
+	
+	def set_temp(self, target_temp, guardband=1, soak_time=1, stable_cnt=10):
 		self.write_temp_value(temp)
 		self.start_chamber()
-		print('Waiting for chamber stabilization')
-		while stable == 0:
-			print('.', )
+		stable = False
+		cnt    = 0
+		print("Target temperature is " + str(target_temp) + ", Guardband is " + str(guardband))
+		while not stable:
 			time.sleep(1)
 			current_temp = self.read_temp()
 			print(current_temp)
-			if lower_lim <= current_temp <= upper_lim:
-				i       = 0
-				stb_cnt = 0
-				while (i < cnt) and not stable:
-					print('.', )
-					time.sleep(10)
-					stb_temp = self.read_temp()
-					print(stb_temp)
-					if lower_lim <= stb_temp <= upper_lim:  # loop to check if 10 reads in a row are within limits
-						stb_cnt += 1
-						i       += 1
-						if (i == 10) & (stb_cnt == i):
-							stable = 1
-					else:
-						i += 1
+			if (target_temp - guardband) <= current_temp <= (target_temp + guardband):
+				cnt += 1
+			else:
+				cnt = 0
+			if (cnt == stable_cnt):
+				stable = True
 		while soak_time >= 1.0:
-			print('Wait %d minute(s) before measurement...' % soak_time)
+			print("Wait {:0.2f} minutes before measurement...".format(soak_time))
 			time.sleep(60)
 			soak_time -= 1.0
 		if soak_time > 0.0:
 			time.sleep(60.0 * soak_time)
-		print("Measurement in progress...")
+		print("Chamber is at temperature")
