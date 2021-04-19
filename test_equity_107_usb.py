@@ -19,7 +19,7 @@ class test_equity_107_usb():
 		self.register_set_cur_profile_temp  = 4122
 		self.register_set_cur_profile_humid = 4123
 		self.register_set_enable            = 2000
-		delf.register_read_model            = 0
+		self.register_read_model            = 0
 	
 	def check_model(self):
 		model_num = 0
