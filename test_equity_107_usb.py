@@ -43,7 +43,7 @@ class test_equity_107_usb():
 		self.inst.write_register(self.register_set_enable, 0, 0)
 	
 	def set_temp(self, target_temp, guardband=1, soak_time=1, stable_cnt=10):
-		self.write_temp_value(temp)
+		self.write_temp_value(target_temp)
 		self.start_chamber()
 		stable = False
 		cnt    = 0
