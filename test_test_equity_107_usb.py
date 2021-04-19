@@ -8,5 +8,5 @@ tc.start_chamber()
 time.sleep(1)
 tc.stop_chamber()
 time.sleep(1)
-tc.set_temp(26)
-print("Temperature has now been reached")
+#show temp every 5 seconds, 21C target +/- 0.5C, soak for 0.5 minutes
+tc.set_temp(target_temp=21, guardband=0.5, sample_interval=5, soak_time=0.5)
